@@ -1,22 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const reservationController = require('../controller/reservation');
+const reservationController = require('../controller/notification');
 
 /**
  * @swagger
- * /api/v1/reservations:
+ * /api/v1/notifications:
  *   get:
- *     summary: Obtiene todas las reservaciones
- *     tags: [Reservaciones]
+ *     summary: Obtiene todas las notificaciones
+ *     tags: [Notificaciones]
  *     responses:
  *       200:
- *         description: Lista de reservaciones obtenida exitosamente
+ *         description: Lista de notificaciones obtenida exitosamente
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Reservacion'
+ *                 $ref: '#/components/schemas/Notificacion'
  *       500:
  *         description: Error interno del servidor
  */
@@ -24,26 +24,26 @@ router.get('/', reservationController.getAllReservations);
 
 /**
  * @swagger
- * /api/v1/reservations/{id}:
+ * /api/v1/notifications/{id}:
  *   get:
- *     summary: Obtiene una reservación por ID
- *     tags: [Reservaciones]
+ *     summary: Obtiene una notificación por ID
+ *     tags: [Notificaciones]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID de la reservación
+ *         description: ID de la notificación
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Reservación obtenida exitosamente
+ *         description: Notificación obtenida exitosamente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Reservacion'
+ *               $ref: '#/components/schemas/Notificacion'
  *       404:
- *         description: Reservación no encontrada
+ *         description: Notificación no encontrada
  *       500:
  *         description: Error interno del servidor
  */
@@ -51,25 +51,25 @@ router.get('/:id', reservationController.getReservationById);
 
 /**
  * @swagger
- * /api/v1/reservations:
+ * /api/v1/notifications:
  *   post:
- *     summary: Crea una nueva reservación
- *     tags: [Reservaciones]
+ *     summary: Crea una nueva notificación
+ *     tags: [Notificaciones]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/NuevaReservacion'
+ *             $ref: '#/components/schemas/NuevaNotificacion'
  *     responses:
  *       201:
- *         description: Reservación creada exitosamente
+ *         description: Notificación creada exitosamente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Reservacion'
+ *               $ref: '#/components/schemas/Notificacion'
  *       400:
- *         description: Datos de reservación inválidos
+ *         description: Datos de notificación inválidos
  *       500:
  *         description: Error interno del servidor
  */
@@ -77,15 +77,15 @@ router.post('/', reservationController.createReservation);
 
 /**
  * @swagger
- * /api/v1/reservations/{id}:
+ * /api/v1/notifications/{id}:
  *   put:
- *     summary: Actualiza una reservación existente
- *     tags: [Reservaciones]
+ *     summary: Actualiza una notificación existente
+ *     tags: [Notificaciones]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID de la reservación a actualizar
+ *         description: ID de la notificación a actualizar
  *         schema:
  *           type: string
  *     requestBody:
@@ -93,18 +93,18 @@ router.post('/', reservationController.createReservation);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ActualizarReservacion'
+ *             $ref: '#/components/schemas/ActualizarNotificacion'
  *     responses:
  *       200:
- *         description: Reservación actualizada exitosamente
+ *         description: Notificación actualizada exitosamente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Reservacion'
+ *               $ref: '#/components/schemas/Notificacion'
  *       400:
  *         description: Datos de actualización inválidos
  *       404:
- *         description: Reservación no encontrada
+ *         description: Notificación no encontrada
  *       500:
  *         description: Error interno del servidor
  */
@@ -112,22 +112,22 @@ router.put('/:id', reservationController.updateReservation);
 
 /**
  * @swagger
- * /api/v1/reservations/{id}:
+ * /api/v1/notifications/{id}:
  *   delete:
- *     summary: Elimina una reservación
- *     tags: [Reservaciones]
+ *     summary: Elimina una notificación
+ *     tags: [Notificaciones]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID de la reservación a eliminar
+ *         description: ID de la notificación a eliminar
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Reservación eliminada exitosamente
+ *         description: Notificación eliminada exitosamente
  *       404:
- *         description: Reservación no encontrada
+ *         description: Notificación no encontrada
  *       500:
  *         description: Error interno del servidor
  */
@@ -137,56 +137,51 @@ router.delete('/:id', reservationController.deleteReservation);
  * @swagger
  * components:
  *   schemas:
- *     Reservacion:
+ *     Notificacion:
  *       type: object
  *       properties:
  *         id:
  *           type: string
- *           description: ID único de la reservación
- *         fechaInicio:
+ *           description: ID único de la notificación
+ *         tipo:
  *           type: string
- *           format: date
- *           description: Fecha de inicio de la reservación
- *         fechaFin:
+ *           description: Tipo de notificación (email, sms, push)
+ *         destinatario:
  *           type: string
- *           format: date
- *           description: Fecha de fin de la reservación
- *         huespedes:
- *           type: integer
- *           description: Número de huéspedes
- *         habitacion:
+ *           description: Destinatario de la notificación
+ *         contenido:
  *           type: string
- *           description: Tipo de habitación
- *     NuevaReservacion:
+ *           description: Contenido de la notificación
+ *         estado:
+ *           type: string
+ *           description: Estado de la notificación (pendiente, enviada, fallida)
+ *         fechaCreacion:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de creación de la notificación
+ *     NuevaNotificacion:
  *       type: object
  *       required:
- *         - fechaInicio
- *         - fechaFin
- *         - huespedes
- *         - habitacion
+ *         - tipo
+ *         - destinatario
+ *         - contenido
  *       properties:
- *         fechaInicio:
+ *         tipo:
  *           type: string
- *           format: date
- *         fechaFin:
+ *         destinatario:
  *           type: string
- *           format: date
- *         huespedes:
- *           type: integer
- *         habitacion:
+ *         contenido:
  *           type: string
- *     ActualizarReservacion:
+ *     ActualizarNotificacion:
  *       type: object
  *       properties:
- *         fechaInicio:
+ *         tipo:
  *           type: string
- *           format: date
- *         fechaFin:
+ *         destinatario:
  *           type: string
- *           format: date
- *         huespedes:
- *           type: integer
- *         habitacion:
+ *         contenido:
+ *           type: string
+ *         estado:
  *           type: string
  */
 

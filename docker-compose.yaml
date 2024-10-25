@@ -12,6 +12,17 @@ services:
     networks:
       - serengueti-network
 
+  notification-service:
+    hostname: notification-service
+    container_name: notification-service
+    build: ./microservices/notification-service
+    volumes:
+      - ./microservices/notification-service:/app
+    env_file:
+      - ./microservices/notification-service/.env
+    networks:
+      - serengueti-network
+
   nginx:
     hostname: nginx
     container_name: nginx

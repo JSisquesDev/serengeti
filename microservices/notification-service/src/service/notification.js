@@ -1,4 +1,4 @@
-const Reservation = require('../model/reservation');
+const Reservation = require('../model/notification');
 const logger = require('../util/logger');
 
 /**

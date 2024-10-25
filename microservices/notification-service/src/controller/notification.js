@@ -3,7 +3,7 @@
  * @module reservationController
  */
 
-const reservationService = require('../service/reservation');
+const reservationService = require('../service/notification');
 const logger = require('../util/logger');
 
 /**
