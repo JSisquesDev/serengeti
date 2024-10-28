@@ -1,29 +1,31 @@
 const mongoose = require('mongoose');
 
-const reservationSchema = new mongoose.Schema({
-  customerEmail: {
+const notificationSchema = new mongoose.Schema({
+  userId: {
     type: String,
     required: true,
     trim: true,
   },
-  date: {
+  titulo: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  mensaje: {
+    type: String,
+    required: true,
+  },
+  estado: {
+    type: String,
+    enum: ['pendiente', 'enviada', 'leida'],
+    default: 'pendiente',
+  },
+  fechaEnvio: {
     type: Date,
-    required: true,
+    default: Date.now,
   },
-  time: {
-    type: String,
-    required: true,
-  },
-
-  status: {
-    type: String,
-    enum: ['pending', 'confirmed', 'cancelled', 'completed'],
-    default: 'pending',
-  },
-  numberOfPeople: {
-    type: Number,
-    required: true,
-    min: 1,
+  fechaLectura: {
+    type: Date,
   },
   createdAt: {
     type: Date,
@@ -35,10 +37,10 @@ const reservationSchema = new mongoose.Schema({
   },
 });
 
-// Middleware to update updatedAt before each update
-reservationSchema.pre('save', function (next) {
+// Middleware para actualizar updatedAt antes de cada actualización
+notificationSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });
 
-module.exports = mongoose.model('Reservation', reservationSchema);
+module.exports = mongoose.model('Notification', notificationSchema);

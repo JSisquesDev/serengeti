@@ -1,5 +1,5 @@
 /**
- * Controlador para las operaciones CRUD de reservaciones
+ * Controlador para las operaciones CRUD de reservas
  * @module reservationController
  */
 
@@ -7,24 +7,24 @@ const reservationService = require('../service/reservation');
 const logger = require('../util/logger');
 
 /**
- * Obtiene todas las reservaciones
+ * Obtiene todas las reservas
  * @param {Object} req - Objeto de solicitud Express
  * @param {Object} res - Objeto de respuesta Express
  */
 exports.getAllReservations = async (req, res) => {
   try {
-    // Lógica para obtener todas las reservaciones
-    logger.info('src/controller/reservation.js | Obteniendo todas las reservaciones');
+    // Lógica para obtener todas las reservas
+    logger.info('src/controller/reservation.js | Obteniendo todas las reservas');
     const reservations = await reservationService.getAllReservations();
     res.status(200).json(reservations);
   } catch (error) {
-    logger.error(`src/controller/reservation.js | Error al obtener las reservaciones: ${error.message}`);
+    logger.error(`src/controller/reservation.js | Error al obtener las reservas: ${error.message}`);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
 
 /**
- * Obtiene una reservación por ID
+ * Obtiene una reserva por ID
  * @param {Object} req - Objeto de solicitud Express
  * @param {Object} res - Objeto de respuesta Express
  */
@@ -34,22 +34,22 @@ exports.getReservationById = async (req, res) => {
 
     // Validar ID
     if (!id) {
-      logger.warn('src/controller/reservation.js | ID de reservación no proporcionado');
-      return res.status(400).json({ error: 'ID de reservación requerido' });
+      logger.warn('src/controller/reservation.js | ID de reserva no proporcionado');
+      return res.status(400).json({ error: 'ID de reserva requerido' });
     }
 
-    // Lógica para obtener una reservación por ID
-    logger.info(`src/controller/reservation.js | Obteniendo reservación con ID: ${id}`);
+    // Lógica para obtener una reserva por ID
+    logger.info(`src/controller/reservation.js | Obteniendo reserva con ID: ${id}`);
     const reservation = await reservationService.getReservationById(id);
     res.status(200).json(reservation);
   } catch (error) {
-    logger.error(`src/controller/reservation.js | Error al obtener la reservación: ${error.message}`);
+    logger.error(`src/controller/reservation.js | Error al obtener la reserva: ${error.message}`);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
 
 /**
- * Crea una nueva reservación
+ * Crea una nueva reserva
  * @param {Object} req - Objeto de solicitud Express
  * @param {Object} res - Objeto de respuesta Express
  */
@@ -80,12 +80,12 @@ exports.createReservation = async (req, res) => {
     }
     reservationData.date = date;
 
-    // Lógica para crear una nueva reservación
-    logger.info('src/controller/reservation.js | Creando nueva reservación');
+    // Lógica para crear una nueva reserva
+    logger.info('src/controller/reservation.js | Creando nueva reserva');
     const reservation = await reservationService.createReservation(reservationData);
     res.status(201).json(reservation);
   } catch (error) {
-    logger.error(`src/controller/reservation.js | Error al crear la reservación: ${error.message}`);
+    logger.error(`src/controller/reservation.js | Error al crear la reserva: ${error.message}`);
     if (error.name === 'ValidationError') {
       return res.status(400).json({
         error: 'Error de validación',
@@ -97,7 +97,7 @@ exports.createReservation = async (req, res) => {
 };
 
 /**
- * Actualiza una reservación existente
+ * Actualiza una reserva existente
  * @param {Object} req - Objeto de solicitud Express
  * @param {Object} res - Objeto de respuesta Express
  */
@@ -107,23 +107,23 @@ exports.updateReservation = async (req, res) => {
 
     // Validar ID
     if (!id) {
-      logger.warn('src/controller/reservation.js | ID de reservación no proporcionado');
-      return res.status(400).json({ error: 'ID de reservación requerido' });
+      logger.warn('src/controller/reservation.js | ID de reserva no proporcionado');
+      return res.status(400).json({ error: 'ID de reserva requerido' });
     }
 
     const updateData = req.body;
-    // Lógica para actualizar una reservación
-    logger.info(`src/controller/reservation.js | Actualizando reservación con ID: ${id}`);
+    // Lógica para actualizar una reserva
+    logger.info(`src/controller/reservation.js | Actualizando reserva con ID: ${id}`);
     const reservation = await reservationService.updateReservation(id, updateData);
     res.status(200).json(reservation);
   } catch (error) {
-    logger.error(`src/controller/reservation.js | Error al actualizar la reservación: ${error.message}`);
+    logger.error(`src/controller/reservation.js | Error al actualizar la reserva: ${error.message}`);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
 
 /**
- * Elimina una reservación
+ * Elimina una reserva
  * @param {Object} req - Objeto de solicitud Express
  * @param {Object} res - Objeto de respuesta Express
  */
@@ -133,16 +133,16 @@ exports.deleteReservation = async (req, res) => {
 
     // Validar ID
     if (!id) {
-      logger.warn('src/controller/reservation.js | ID de reservación no proporcionado');
-      return res.status(400).json({ error: 'ID de reservación requerido' });
+      logger.warn('src/controller/reservation.js | ID de reserva no proporcionado');
+      return res.status(400).json({ error: 'ID de reserva requerido' });
     }
 
-    // Lógica para eliminar una reservación
-    logger.info(`src/controller/reservation.js | Eliminando reservación con ID: ${id}`);
+    // Lógica para eliminar una reserva
+    logger.info(`src/controller/reservation.js | Eliminando reserva con ID: ${id}`);
     const reservation = await reservationService.deleteReservation(id);
     res.status(200).json(reservation);
   } catch (error) {
-    logger.error(`src/controller/reservation.js | Error al eliminar la reservación: ${error.message}`);
+    logger.error(`src/controller/reservation.js | Error al eliminar la reserva: ${error.message}`);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
