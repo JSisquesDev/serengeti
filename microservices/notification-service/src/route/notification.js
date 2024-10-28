@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const reservationController = require('../controller/notification');
+const notificationController = require('../controller/notification');
 
 /**
  * @swagger
@@ -20,7 +20,7 @@ const reservationController = require('../controller/notification');
  *       500:
  *         description: Error interno del servidor
  */
-router.get('/', reservationController.getAllReservations);
+router.get('/', notificationController.getAllNotifications);
 
 /**
  * @swagger
@@ -47,7 +47,7 @@ router.get('/', reservationController.getAllReservations);
  *       500:
  *         description: Error interno del servidor
  */
-router.get('/:id', reservationController.getReservationById);
+router.get('/:id', notificationController.getNotificationById);
 
 /**
  * @swagger
@@ -73,7 +73,7 @@ router.get('/:id', reservationController.getReservationById);
  *       500:
  *         description: Error interno del servidor
  */
-router.post('/', reservationController.createReservation);
+router.post('/', notificationController.createNotification);
 
 /**
  * @swagger
@@ -108,7 +108,7 @@ router.post('/', reservationController.createReservation);
  *       500:
  *         description: Error interno del servidor
  */
-router.put('/:id', reservationController.updateReservation);
+router.put('/:id', notificationController.updateNotification);
 
 /**
  * @swagger
@@ -131,7 +131,7 @@ router.put('/:id', reservationController.updateReservation);
  *       500:
  *         description: Error interno del servidor
  */
-router.delete('/:id', reservationController.deleteReservation);
+router.delete('/:id', notificationController.deleteNotification);
 
 /**
  * @swagger
