@@ -21,10 +21,10 @@ const swaggerMiddleware = require('./src/config/swaggerConfig');
 swaggerMiddleware(app);
 
 // Importa el router de reservaciones
-const notificationRouter = require('./src/route/router');
+const authRouter = require('./src/route/router');
 
 // Configura la ruta base para las reservaciones
-app.use(process.env.API_BASE_PATH, notificationRouter);
+app.use(process.env.API_BASE_PATH, authRouter);
 
 // Exporta la aplicación para su uso en otros módulos
 module.exports = app;

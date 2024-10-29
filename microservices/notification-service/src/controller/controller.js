@@ -3,7 +3,7 @@
  * @module notificationController
  */
 
-const notificationService = require('../service/notification');
+const notificationService = require('../service/service');
 const logger = require('../util/logger');
 
 /**
